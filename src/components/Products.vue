@@ -1,7 +1,19 @@
 <script setup>
-import {useProductsStore} from '../stores/productsStore.js'
+import { useProductsStore } from '../stores/productsStore.js'
 
 const store = useProductsStore()
+
+const onToggleUserItem = (item) => {
+  store.toggleUserItem(item)
+}
+
+const onToggleRightItem = (item) => {
+  store.toggleRightItem(item)
+}
+
+const clearSelections = () => {
+  store.clearAllSelections()
+}
 </script>
 
 <template>
@@ -60,7 +72,7 @@ const store = useProductsStore()
               'products__item--disabled':
                 !store.isUserItemSelected(item) && store.selectedUserItems.length >= 6
             }"
-														@click="store.toggleUserItem(item)"
+														@click="onToggleUserItem(item)"
 										>
 												{{ item.name }}
 										</button>
@@ -77,7 +89,7 @@ const store = useProductsStore()
 														:class="{
               'products__item--selected': store.isRightItemSelected(item)
             }"
-														@click="store.toggleRightItem(item)"
+														@click="onToggleRightItem(item)"
 										>
 												{{ item.name }}
 										</button>
@@ -85,7 +97,7 @@ const store = useProductsStore()
 						</div>
 				</div>
 
-				<button class="products__clear" @click="store.clearAllSelections">
+				<button class="products__clear" @click="clearSelections">
 						Очистить выбор
 				</button>
 		</section>
